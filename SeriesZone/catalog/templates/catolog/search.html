@@ -1,0 +1,34 @@
+{% extends 'base\base.html' %}
+
+{% block content %}
+
+{% if error %}
+    <div class="error-div">
+    <span>За пошуком : {{ q }} нічого не знайдено.</span>
+    <br>
+    </div>
+{% else %}
+<h3 class="find-text">Пошук за запитом:  {{ q }}.</h3>
+{% endif %}
+<div class="container-with-all">
+<div class="container-with-serials" id="container">
+        {% for data in serials %}
+        <a href="{{  data.get_absolute_url }}">
+            <div class="serial-search-card">
+                <div class="info-serial">
+                    <img src="{{data.img.url}}" alt="{{data.name}}">
+                    <p style="font-size: 22px; font-weight: bold;">{{ data.name }}</p>
+                    
+                    <div class="dop-info-in-card">
+                        <p class='{{ data.category.first.name }}' >{{ data.category.first.name }}</p>
+                        <p>{{ data.age }}+</p>
+                        <p style="font-weight: bold;">{{ data.raiting }}</p> 
+                        <p style="font-size: 22px;">{{ data.cost }} ₴</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

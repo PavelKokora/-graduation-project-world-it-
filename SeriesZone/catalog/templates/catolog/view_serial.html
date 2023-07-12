@@ -1,0 +1,152 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+
+
+</head>
+<body>
+
+    <div class="info-view-serial">
+    <!-- <div class="sub-container4"> -->
+    <div class = 'sub-container3'>
+        <img src="{{serial.img.url}}" alt="">
+        <div class="container-with-all-info">
+            <div class="main-info-in-vew-serial">
+
+                <div class="sub-container">
+                    <div class="name-serial">
+                        <p style="font-size: 22px; font-weight: bold;">{{serial.name}} ({{serial.dateOfIssue}})</p>
+                    </div>
+
+                    <div class="block-age">
+                        <p style="font-size: 22px; font-weight: bold;">{{serial.age}} +</p>
+                    </div>
+                </div>
+            </div>
+            <input id="url-library" value="{% url 'serial_view' serial_pk=serial.pk %}" hidden>
+            {% if in_library != True %}
+                {% if serial.cost == 0 %}
+                    <div class="sub-container6">
+                        <div class="add-to-library-btn">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                
+                                <button type="button" value="{{serial.pk}}" class="modal-button button-add-in-basket">
+                                Додати у бібліотеку
+                                </button>
+                            </form>
+                        </div>
+                        <button class="modal-button" id="openModalButton">Трейлер</button>
+                    </div>
+                {% else %}
+                    <div class="sub-container6">
+                        <a href="{{ serial.get_absolute_url_for_buy }}"><button class="modal-button">Купити {{serial.cost}}₴</button></a>
+                        <button class="modal-button" id="openModalButton">Трейлер</button>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="sub-container6">
+                    <!-- <a class="modal-button" href="{% url 'profile' %}">У бібліотеці</a> -->
+                    {% if serial.cost == 0 %}
+                    
+                    <button class="button-dell-in-basket" value="{{serial.pk}}">Видалити з бібліотеки</button>
+                    {% else %}
+                    <a class="modal-button" href="{% url 'profile' %}">У бібліотеці</a>
+                    {% endif %}
+                    <button class="modal-button" id="openModalButton">Трейлер</button>
+                </div>
+            {% endif %}
+
+            <div id="myModal" class="modal">
+                <div class="trailer-content">  
+                    <div class="sub-video">
+                        <video class="trailer-video" controls width = "100%" height = "350px" poster="1.png" >
+                            <source src="{{serial.trailer.url}}">
+                        </video>
+                    </div>            
+                    <span class="close">&times;</span>
+                </div>
+            </div>
+
+            
+
+            
+
+            <div class="container-of-info">
+
+                <div class="full-info">
+                    
+                    <div class="information-table-of-contents">
+                        <p>Рейтинг</p>
+                        <p>Жанр</p>
+                        <p>Країна</p>
+                        <p>Вік</p>
+                    </div>
+                    <div class="information">
+                        <div class="raiting" style="font-size: 22px;">
+                            <p class="raiting-in-card">{{serial.raiting}}</p>
+                        </div>
+                        <p >{% for category in categories %}
+                            {{category.name}}
+                            {% endfor %}    
+                        </p>
+                        <p>{{serial.country}}</p>
+                        <p>{{serial.age}}+</p>
+                    </div>
+                
+                </div>
+                <div class="description">
+                    <br>
+                    <p>{{serial.description}}</p>
+                </div>
+                
+            </div>
+        </div>
+
+        </div>
+        <!-- </div> -->
+    </div>
+    </div>
+
+    {% if error %}
+    <div class="title">
+        <p>Нема контенту</p>
+    </div>
+    {% else %}
+
+
+        
+
+        <div class="sub-container5">
+        <div class="play" style="width: 100%; display: flex; justify-content: center; flex-direction: row;">
+            <div class="vid-conteiner">
+                <video src="{{first_series.video.url}}" height="300px" width="800px" controls = true id = "videoPlay" ></video>
+            </div>
+        </div>
+        <div class="container-select-season">
+            <input id="url" value="{% url 'serial_view' serial_pk=serial.pk %}" hidden>
+
+            {% for data in season %}
+            <button class="season-select-button" value="{{data.number_of_season}} " name = "season-select"><p class="seazon-name">{{data.number_of_season}} сезон</p></button>
+            {% endfor %}
+        </div>
+            
+            <div class="container-of-series">
+            {% for data in first_season %}
+            <button class="card-series" value = "{{data.pk}}">
+                <img src = "{{data.preview.url}}" >
+                <p>{{data.number_of_series}}. {{data.name}}</p>
+            </button>
+            {% endfor %}
+            </div>
+        </div>
+
+
+        
+
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+<script src = '{% static "product.js" %}' defer></script>
+{% endblock %}

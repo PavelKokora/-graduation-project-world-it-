@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    
+    <div class="user-info-full">
+        <div class="user-info">
+            <div class="user-image-profile">
+                <div></div>
+            </div>
+            <div class="user-name-profile">
+                <p class="user-name-text" style="font-size: 20px;"> {{ name }} </p>
+            </div>
+   
+        </div>      
+    </div>
+    {% if user_serials == none %}
+    <div class="error-div">
+        <p class="" >Бiблiотека порожня</p>
+        </div>
+    {% else %}
+    <div class="title">
+        <p style="border-bottom: 2px solid #363d46;">Біблiотека</p>
+    </div>
+    <div class="library">
+        <div class="library-content" id="libraryDiv">
+            {% for serial in user_serials %}
+            <div class="lib-card">
+                <a href="/catalog/{{ serial.pk }}">
+                                <div class="lib-serial">
+                                    <img src="{{ serial.img.url }}" alt="{{data.name}}">
+                                    <!-- <p style="font-size: 18px;">{{ serial.name }}</p> -->
+                                    <!-- {% if serial.cost == 0 %}
+                                    <button class="button-dell-in-basket">
+                                        <svg width="17" height="17" viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg" class="delete-svg">
+                                            <g clip-path="url(#clip0_393_779)">
+                                            <path d="M11.7104 7.40869H5.2896C4.68684 7.40869 4.19824 7.89729 4.19824 8.50005C4.19824 9.1028 4.68684 9.5914 5.2896 9.5914H11.7104C12.3131 9.5914 12.8017 9.1028 12.8017 8.50005C12.8017 7.89729 12.3131 7.40869 11.7104 7.40869Z" fill="#BE313A"/>
+                                            <path d="M8.50003 0C3.80556 0 0 3.80556 0 8.50003C0 13.1945 3.80556 17.0001 8.50003 17.0001C13.1945 17.0001 17.0001 13.1945 17.0001 8.50003C17.0001 3.80556 13.1944 0 8.50003 0ZM8.50003 14.8173C5.00845 14.8173 2.18271 11.9919 2.18271 8.50003C2.18271 5.00845 5.00812 2.18271 8.50003 2.18271C11.9916 2.18271 14.8173 5.00812 14.8173 8.50003C14.8173 11.9915 11.9919 14.8173 8.50003 14.8173Z" fill="#BE313A"/>
+                                            </g>
+                                            <defs>
+                                            <clipPath id="clip0_393_779">
+                                            <rect width="17" height="17" fill="white"/>
+                                            </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </button>
+                                    {% endif %} -->
+                                </div>
+
+                            </div>
+                        </a>
+            {% endfor %}
+        </div>
+    </div>    
+    {% endif %}
+{% endblock %}
+
+
+
+
+
+
+
+
+

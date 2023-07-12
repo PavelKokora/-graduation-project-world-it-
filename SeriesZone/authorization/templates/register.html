@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Реєстрацiя</title>
+</head>
+<body>
+    <div class="reg-auth-box" style="height: 65%;">
+        <h1>Реєстрація</h1>
+    <form method="post">
+        {% csrf_token %}
+        <center>
+        <p style="color: rgb(255, 0, 0);">{{error_text}}</p>
+        <input type="text" placeholder="Логін" name="username" value="{{username}}" required>
+        <input type="email" placeholder="Email" name="email" value="{{email}}" required>
+        <input type="password" placeholder="Пароль" name="password" value="{{password}}" required >
+        <input type="password" placeholder="Підтвердження паролю" name="password_confirm" value="{{password_confirm}}" required>
+        <input class='reg-auth-but' type="submit" value="Реєстрація">
+        <p>Вже зареєстровані? <a href="{% url 'login' %}"> Увійдіть</a></p>
+        </center>
+    </form>
+    </div>
+</body>
+</html>

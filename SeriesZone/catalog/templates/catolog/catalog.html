@@ -1,0 +1,139 @@
+{% extends 'base\base.html' %}
+
+{% block content %}
+
+<button class="filter-button" id="filter-button" style="z-index: 3; color:white;">
+    Фільтри
+</button>
+
+
+
+
+<div class="content" style="scroll-behavior: smooth;">
+    <div class="scroll-page" id="найбільший рейтинг" >
+<p  class="line">найбільший рейтинг</p> 
+    <div class="container-with-serials" >
+        {% for data in serials|dictsort:"raiting" reversed %}
+            {% if data.raiting >= 8.3 %}
+            <a href="{{  data.get_absolute_url }}">
+                <div class="serial-card">
+                    <div class="info-serial" >
+                        <img src="{{data.img.url}}" alt="{{data.name}}">
+                        <p style="font-size: 22px; font-weight: bold;">{{ data.name }}</p>
+                        
+                        
+                        <div class="dop-info-in-card">
+                            <p class='{{ data.category.first.name }}' >{{ data.category.first.name }}</p>
+                            <p>{{ data.age }}+</p>
+                            <p style="font-weight: bold;">{{ data.raiting }}</p> 
+                        </div>
+                        
+                        {% if data.cost == 0 %}
+                        <p style="font-size: 22px;">Безкоштовно</p>
+                        {% else %}
+                        <p style="font-size: 22px;">{{ data.cost }} ₴</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+            {% endif %}
+        {% endfor %}
+</div>
+
+<div class="scroll-page" id="безкоштовні серіали" >
+<p  class="line">безкоштовні серіали</p> 
+    <div class="container-with-serials">
+        {% for data in serials %}
+            {% if data.cost == 0 %}
+            <a href="{{  data.get_absolute_url }}">
+                <div class="serial-card">
+                    <div class="info-serial">
+                        <img src="{{data.img.url}}" alt="{{data.name}}">
+                        <p style="font-size: 22px; font-weight: bold;">{{ data.name }}</p>
+                        
+                        
+                        <div class="dop-info-in-card">
+                            <p class='{{ data.category.first.name }}' >{{ data.category.first.name }}</p>
+                            <p>{{ data.age }}+</p>
+                            <p style="font-weight: bold;">{{ data.raiting }}</p> 
+                        </div>
+                        
+                        {% if data.cost == 0 %}
+                        <p style="font-size: 22px;">Безкоштовно</p>
+                        {% else %}
+                        <p style="font-size: 22px;">{{ data.cost }} ₴</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+            {% endif %}
+        {% endfor %}
+</div>
+</div>
+
+<div class="scroll-container" >
+
+        {% for category in category_list%}    
+        <div class="scroll-page" id="{{category.name}}" >
+           <p  class="line">{{category.name}}</p> 
+          
+
+           <div class="container-with-serials">
+                {% for data in serials %}
+                    {% if data.category.first.name == category.name or data.category.last.name == category.name %}
+
+                    <a href="{{  data.get_absolute_url }}">
+                            <div class="serial-card" >
+                                <div class="info-serial" >
+                                    <img src="{{data.img.url}}" alt="{{data.name}}">
+                                    <p style="font-size: 22px; font-weight: bold;">{{ data.name }}</p>
+                                    
+                                    
+                                    <div class="dop-info-in-card">
+                                        <p class='{{ data.category.first.name }}' >{{ data.category.first.name }}</p>
+                                        <p>{{ data.age }}+</p>
+                                        <p style="font-weight: bold;">{{ data.raiting }}</p> 
+                                    </div>
+                                    
+                                    {% if data.cost == 0 %}
+                                    <p style="font-size: 22px;">Безкоштовно</p>
+                                    {% else %}
+                                    <p style="font-size: 22px;">{{ data.cost }} ₴</p>
+                                    {% endif %}
+                                    
+
+                            </div>
+                        </div>
+                        </a>
+                        
+                    {% endif %}
+               
+            {% endfor %}
+        </div>
+    </div>
+
+        </div>
+
+
+</div>
+</div>
+{% endfor %}
+</div>
+    <div  id="modalwin" style="display: none;">
+        <div>
+
+            <nav class="cat_btns">
+                <p  class="line" style="font-size: 16px;">Категорії</p> 
+                <a href="#найбільший рейтинг" class="categoryButton" value="найбільший рейтинг">найбільший рейтинг</a>
+                <a href="#безкоштовні серіали" class="categoryButton" value="free">безкоштовні серіали</a>
+                <p  class="line" style="font-size: 16px;">Жанри</p> 
+            {% for data in categories %}
+                <a href="#{{ data.name }}" class="categoryButton" value="{{ data.name }}">{{ data.name }}</a>
+            {% endfor %}
+            </nav>
+
+           
+        </div>
+    </div>
+{% endblock %}
+

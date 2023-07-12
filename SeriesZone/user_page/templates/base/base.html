@@ -1,0 +1,84 @@
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}" />
+    <title>{{ title }}</title>
+    <script src = '{% static "jquery-3.6.4.js" %}' defer></script>
+
+
+</head>
+    <body id="body">
+        <div class="preloader">
+            <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path fill="currentColor"
+                d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+              </path>
+            </svg>
+        </div>
+
+        <header>
+
+            <div class="logo">
+                <a href="{% url 'catalog' %}">
+                    <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                        <g clip-path="url(#clip0_9_2)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M35.1391 16.0673C32.8779 14.5564 30.2195 13.75 27.5 13.75V0C32.939 0 38.2558 1.61285 42.7782 4.63459C47.3006 7.65632 50.8252 11.9512 52.9067 16.9762C54.988 22.0011 55.5327 27.5305 54.4716 32.865C53.4105 38.1994 50.7914 43.0995 46.9454 46.9454C43.0995 50.7914 38.1994 53.4105 32.865 54.4716C27.5305 55.5327 22.0011 54.988 16.9762 52.9067C11.9512 50.8252 7.65632 47.3006 4.63459 42.7782C1.61285 38.2558 0 32.939 0 27.5H13.75C13.75 30.2195 14.5564 32.8779 16.0673 35.1391C17.5781 37.4003 19.7256 39.1626 22.2382 40.2034C24.7506 41.2441 27.5153 41.5163 30.1825 40.9857C32.8497 40.4553 35.2997 39.1457 37.2228 37.2228C39.1457 35.2997 40.4553 32.8497 40.9857 30.1825C41.5163 27.5153 41.2441 24.7506 40.2034 22.2382C39.1626 19.7256 37.4003 17.5781 35.1391 16.0673Z" fill="#EDEDED"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.75 5.95547e-06C13.75 1.80568 13.3943 3.59368 12.7033 5.2619C12.0123 6.93013 10.9995 8.44592 9.72271 9.72273C8.44592 10.9995 6.93013 12.0123 5.2619 12.7034C3.59367 13.3943 1.80567 13.75 6.01026e-07 13.75L0 27.5C3.61135 27.5 7.18734 26.7887 10.5238 25.4067C13.8603 24.0247 16.8919 21.999 19.4454 19.4454C21.999 16.8919 24.0247 13.8603 25.4067 10.5238C26.7887 7.18734 27.5 3.61135 27.5 0L13.75 5.95547e-06Z" fill="#EDEDED"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_9_2">
+                        <rect width="55" height="55" fill="white"/>
+                        </clipPath>
+                        </defs>
+                        </svg>
+                        <p class="logo-text" >SeriesZone</p>
+                        
+                    
+                    </a>
+            </div>
+
+            <div class="search">
+                <form action="{% url 'search' %}" method="get">
+                <input type="text" name='q' placeholder="Пошук">
+                <div class="search-button">
+                    <button style="background: none; border: none;" type="submit" name="buton">
+                        <div></div>
+                    </button>
+                </div>
+                </form>
+            </div>
+            <a href="{% url 'profile' %}">
+            <div class="button-with-img">
+                <div></div>
+                
+            </div>
+            
+        </a>
+
+
+
+
+        </header>
+        {% block content %}
+        {% endblock %}
+
+        {% block script %}
+        {% endblock %}
+        <script>
+            window.onload = function () {
+              document.body.classList.add('loaded_hiding');
+              window.setTimeout(function () {
+                document.body.classList.add('loaded');
+                document.body.classList.remove('loaded_hiding');
+              }, 500);
+            }
+          </script>
+            <script src = '{% static "catalog.js" %}' defer></script>
+    </body>
+</html>
